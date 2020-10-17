@@ -10,6 +10,6 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic LibraryEvents ( ) {
-        return TopicBuilder.name("library-events").partitions(3).replicas(3).build();
+        return TopicBuilder.name("library-events").partitions(2).replicas(2).build();
     }
 }

@@ -8,6 +8,7 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: libray-events-listener-group
     admin:
       properties:
         bootstrap-servers: localhost:9092
