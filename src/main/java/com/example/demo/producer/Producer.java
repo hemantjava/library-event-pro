@@ -4,6 +4,7 @@ import com.example.demo.domain.LibraryEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -28,6 +29,7 @@ public class Producer {
         final String value = objectMapper.writeValueAsString(libraryEvent);
         //  kafkaTemplate.send() if we specified topics then
         //if we specified kafkaTemplate.sendDefault() topic in yml
+       // kafkaTemplate.send("",2,""); topic,key,value
         final ListenableFuture<SendResult<Integer, String>> future = kafkaTemplate.sendDefault(key, value);
         future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {  //ListenableFutureCallback has 2 abstract method onFailure and onSuccess
             @Override
@@ -67,7 +69,7 @@ public class Producer {
     public void sendLibraryEvent3rd (LibraryEvent libraryEvent) throws JsonProcessingException {
         final String value = objectMapper.writeValueAsString(libraryEvent);
         //this approach we can call any topics
-        kafkaTemplate.send("library-events",libraryEvent.getLibraryEventId(),value);
+        kafkaTemplate.send("library-events", libraryEvent.getLibraryEventId(), value);
     }
 
 
